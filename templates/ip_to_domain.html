@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-center">IP⇒ドメイン変換ツール</h1>
+<form method="post">
+  <div class="mb-3">
+    <textarea class="form-control" name="input_data" rows="10" placeholder="IPアドレスを改行で入力してください">{{ request.form.input_data }}</textarea>
+  </div>
+  <div class="form-check mb-3 text-center">
+    <input class="form-check-input" type="checkbox" name="include_cname" id="include_cname" {% if request.form.include_cname %}checked{% endif %}>
+    <label class="form-check-label" for="include_cname">CNAME情報を含める</label>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <button class="btn btn-primary me-2" name="action" value="convert">IP変換</button>
+    <button class="btn btn-secondary" name="download" value="true">結果のダウンロード</button>
+  </div>
+</form>
+{% if table is not none %}
+  <div class="mt-4">
+    {{ table.to_html(classes="table table-striped", index=False) | safe }}
+  </div>
+{% endif %}
+{% endblock %}
